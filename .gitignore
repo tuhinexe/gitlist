@@ -1,0 +1,23 @@
+# Ignore sensitive files
+config.ini
+secrets.txt
+
+# Ignore build artifacts
+build/
+dist/
+*.exe
+*.dll
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln.cache
+
+# Ignore logs and temporary files
+logs/
+temp/
+*.log
+
+src/scripts/config.js

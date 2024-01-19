@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/public/assets/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/src/styles/main.css" />
+    <script src="/src/scripts/config.js" type="module" defer></script>
+    <script src="/src/scripts/helper.js" type="module" defer></script>
+    <script src="/src/scripts/main.js" type="module" defer></script>
+
+    <title>GitList</title>
+  </head>
+  <body>
+    <main>
+      <section id="search-section">
+        <nav class="nav">
+          <div class="logo-container">
+            <img src="/public/assets/github-logo-240.png" alt="GitList" />
+            <p>GitList</p>
+          </div>
+          <div class="search-container">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search for a user"
+              autocomplete="off"
+            />
+            <button id="search-button">Search</button>
+          </div>
+        </nav>
+      </section>
+      <section id="profile-section">
+        <div>
+          <img id="profile-image" src="" alt="" />
+        </div>
+        <div>
+          <h2 id="profile-name"></h2>
+          <p id="bio">Bio here</p>
+          <p id="profile-location">location</p>
+          <div class="links">
+            <span>
+              <img
+                width="30"
+                height="30"
+                src="/public/assets/twitter-logo-240.png"
+                alt="" />
+              <a href="" target="_blank" id="profile-twitter"></a
+            ></span>
+            <span>
+              <img
+                width="30"
+                height="30"
+                src="/public/assets/github-logo-240.png"
+                alt=""
+              />
+              <a href="" target="_blank" id="profile-website"></a>
+            </span>
+          </div>
+        </div>
+      </section>
+      <section id="list-section">
+        <div class="border-line"></div>
+        <div class="repo-card"></div>
+      </section>
+      <section id="page-section">
+        <div class="page-button-container">
+          <button id="prev-btn">Previous</button>
+          <button id="next-btn">Next</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

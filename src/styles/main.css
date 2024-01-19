@@ -1,0 +1,197 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap");
+
+:root {
+  --font-primary: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #0d1117;
+  color: #fff;
+  font-family: var(--font-primary);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h3,
+p {
+  margin: 0;
+}
+
+#search-section,
+#profile-section,
+#list-section {
+  padding-inline: 2rem;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-container input {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background-color: #1c222b;
+  color: #fff;
+}
+
+.search-container button {
+  padding: 0.59rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  font-size: 0.8rem;
+  background-color: #1c222b;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-container button:hover {
+  background-color: #142844;
+}
+
+.logo-container img {
+  height: 40px;
+  width: 40px;
+}
+
+/* Profile Section */
+
+#profile-section {
+  gap: 2rem;
+  background-color: #1c2635;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 100%;
+  margin-inline: auto;
+}
+#profile-section :nth-child(2) {
+  margin: 1rem 0;
+}
+
+#profile-image {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.links span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.links span a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.links span a:hover {
+  color: #58a6ff;
+}
+
+/* List Section */
+
+#list-section {
+  flex-direction: column;
+}
+
+.border-line {
+  margin-top: 1rem;
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
+}
+
+.repo-card {
+  display: grid;
+  justify-content: center;
+  align-items: flex-start;
+  grid-template-columns: repeat(2, 0.4fr);
+  gap: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.repo-card-item {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 2rem;
+  /* width: 40%; */
+  background-color: #1c2635;
+  border-radius: 10px;
+  margin-top: 0.2rem;
+  height: 150px;
+  width: 500px;
+  border: #fff 1px solid;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.repo-card-item:hover {
+  border: #58a6ff 1px solid;
+}
+
+.topics-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.topics {
+  background-color: #335c8b;
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .repo-card {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
