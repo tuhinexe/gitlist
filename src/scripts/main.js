@@ -106,7 +106,6 @@ const renderProfile = async (githubUser) => {
   profileWebsite.href = `https://github.com/${profile.login}`;
 
   totalRepos = profile.public_repos;
-  console.log(totalRepos);
   if (totalRepos === 0) {
     repoDiv.style.display = "flex";
     repoDiv.innerHTML = `<h1 style="margin-inline:auto;">No Repositories Found</h1>`;
@@ -165,11 +164,10 @@ const renderRepos = async (url, sortBy) => {
         </div>
         <div class="repo-issues">
           <span>Language :</span>
-          <span>${repos.language}</span>
+          <span>${repos.language || "No language"}</span>
         </div>
       </div>
     </a>`;
-    console.log(repoDiv.firstElementChild);
     repoDiv.style.display = "flex";
     repoDiv.firstElementChild.style.width = "100%";
     return;
@@ -181,7 +179,6 @@ const renderRepos = async (url, sortBy) => {
 
   repoDiv.innerHTML = sortedRepos
     .map((repo) => {
-      console.log(repo);
       return `
     <a href=${repo.html_url} target="_blank" class="repo-card-item">
       <h3>${repo.name}</h3>
@@ -260,14 +257,12 @@ const handleNumberOfRepos = (e) => {
 };
 
 const handleSearch = () => {
-  console.log(searchFilter.value);
   if (searchFilter.value === "user") {
     userName = searchInput.value;
     renderProfile(userName);
     renderRepos(`/users/${userName}/repos?per_page=${perPage}&page=1`);
   } else {
     let repoName = searchInput.value;
-    console.log(repoName);
     renderRepos(`/repos/${userName}/${repoName}`, "repo");
   }
 };
