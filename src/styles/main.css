@@ -330,6 +330,20 @@ p {
   background-color: #5188d4;
 }
 
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  display: none;
+}
+
+.loading-spinner img {
+  height: 300px;
+  width: 300px;
+}
+
 @media screen and (max-width: 1200px) {
   body {
     width: 100%;

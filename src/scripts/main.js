@@ -120,91 +120,99 @@ const renderProfile = async (githubUser) => {
 };
 
 const renderRepos = async (url, sortBy) => {
-  const repos = await getUserRepos(url);
-  if (repos.message === "Not Found") {
-    modal.style.display = "flex";
-    return;
-  }
-  let sortedRepos = repos;
+  repoDiv.innerHTML = "";
+  const loadingSpinner = document.querySelector(".loading-spinner");
+  loadingSpinner.style.display = "block";
 
-  if (sortBy === "stars") {
-    sortedRepos.sort((a, b) => {
-      return b.stargazers_count - a.stargazers_count;
-    });
-  } else if (sortBy === "forks") {
-    sortedRepos.sort((a, b) => {
-      return b.forks_count - a.forks_count;
-    });
-  } else if (sortBy === "repo") {
-    pageSection.style.display = "none";
-    repoDiv.innerHTML = `
-    <a href=${repos.html_url} target="_blank" class="repo-card-item">
-      <h3>${repos.name}</h3>
-      <p>${repos.description || "No Description"}</p>
-      <div class="topics-container">
-        ${repos.topics
-          .map((topic) => {
-            return `<span class="topics">${topic}</span>`;
-          })
-          .join(" ")}
-      </div>
-      <div class="repo-card-footer">
-        
-        <div class="repo-star">
-          <span>Stars :</span>
-          <span>${repos.stargazers_count}</span>
-        </div>
-        <div class="repo-fork">
-          <span>Forks :</span>
-          <span>${repos.forks_count}</span>
-        </div>
-        <div class="repo-issues">
-          <span>Issues :</span>
-          <span>${repos.open_issues_count}</span>
-        </div>
-        <div class="repo-issues">
-          <span>Language :</span>
-          <span>${repos.language || "No language"}</span>
-        </div>
-      </div>
-    </a>`;
-    repoDiv.style.display = "flex";
-    repoDiv.firstElementChild.style.width = "100%";
-    return;
-  } else {
-    sortedRepos = repos.filter((repo) => {
-      return repo.visibility === "public";
-    });
-  }
+  try {
+    const repos = await getUserRepos(url);
+    if (repos.message === "Not Found") {
+      modal.style.display = "flex";
+      return;
+    }
 
-  repoDiv.innerHTML = sortedRepos
-    .map((repo) => {
-      return `
-    <a href=${repo.html_url} target="_blank" class="repo-card-item">
-      <h3>${repo.name}</h3>
-      <p>${repo.description || "No Description"}</p>
-      <div class="topics-container">
-        ${repo.topics
-          .map((topic) => {
-            return `<span class="topics">${topic}</span>`;
-          })
-          .join(" ")}
-      </div>
-      <div class="repo-card-footer">
-        
-        <div class="repo-star">
-          <span>Stars :</span>
-          <span>${repo.stargazers_count}</span>
-        </div>
-        <div class="repo-fork">
-          <span>Forks :</span>
-          <span>${repo.forks_count}</span>
-        </div>
-      </div>
-    </a>`;
-    })
-    .join("");
+    let sortedRepos = repos;
+
+    if (sortBy === "stars") {
+      sortedRepos.sort((a, b) => {
+        return b.stargazers_count - a.stargazers_count;
+      });
+    } else if (sortBy === "forks") {
+      sortedRepos.sort((a, b) => {
+        return b.forks_count - a.forks_count;
+      });
+    } else if (sortBy === "repo") {
+      pageSection.style.display = "none";
+      repoDiv.innerHTML = `
+        <a href=${repos.html_url} target="_blank" class="repo-card-item">
+          <h3>${repos.name}</h3>
+          <p>${repos.description || "No Description"}</p>
+          <div class="topics-container">
+            ${repos.topics
+              .map((topic) => {
+                return `<span class="topics">${topic}</span>`;
+              })
+              .join(" ")}
+          </div>
+          <div class="repo-card-footer">
+            <div class="repo-star">
+              <span>Stars :</span>
+              <span>${repos.stargazers_count}</span>
+            </div>
+            <div class="repo-fork">
+              <span>Forks :</span>
+              <span>${repos.forks_count}</span>
+            </div>
+            <div class="repo-issues">
+              <span>Issues :</span>
+              <span>${repos.open_issues_count}</span>
+            </div>
+            <div class="repo-issues">
+              <span>Language :</span>
+              <span>${repos.language || "No language"}</span>
+            </div>
+          </div>
+        </a>`;
+      repoDiv.style.display = "flex";
+      repoDiv.firstElementChild.style.width = "100%";
+      return;
+    } else {
+      sortedRepos = repos.filter((repo) => {
+        return repo.visibility === "public";
+      });
+    }
+
+    repoDiv.innerHTML = sortedRepos
+      .map((repo) => {
+        return `
+          <a href=${repo.html_url} target="_blank" class="repo-card-item">
+            <h3>${repo.name}</h3>
+            <p>${repo.description || "No Description"}</p>
+            <div class="topics-container">
+              ${repo.topics
+                .map((topic) => {
+                  return `<span class="topics">${topic}</span>`;
+                })
+                .join(" ")}
+            </div>
+            <div class="repo-card-footer">
+              <div class="repo-star">
+                <span>Stars :</span>
+                <span>${repo.stargazers_count}</span>
+              </div>
+              <div class="repo-fork">
+                <span>Forks :</span>
+                <span>${repo.forks_count}</span>
+              </div>
+            </div>
+          </a>`;
+      })
+      .join("");
+  } finally {
+    loadingSpinner.style.display = "none"; // Hide loading spinner
+  }
 };
+
 const handlePreviosPage = () => {
   if (pageNumber === 1) {
     return;
