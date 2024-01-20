@@ -15,25 +15,51 @@
 
     <title>GitList</title>
   </head>
+
   <body>
+    <!-- Not found modal -->
+    <div id="not-found-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Oops! User not found.</p>
+      </div>
+    </div>
     <main>
+      <!--❗ Header section including logo and search bar as nav ❗-->
+
       <section id="search-section">
         <nav class="nav">
-          <div class="logo-container">
+          <a href="" class="logo-container">
             <img src="/public/assets/github-logo-240.png" alt="GitList" />
             <p>GitList</p>
-          </div>
-          <div class="search-container">
-            <input
-              type="text"
-              id="search-input"
-              placeholder="Search for a user"
-              autocomplete="off"
-            />
-            <button id="search-button">Search</button>
+          </a>
+          <div class="options">
+            <div class="repo-dropdown">
+              <label for="repo-per-page">Per page</label>
+              <select id="repo-per-page">
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              <p>Repo</p>
+            </div>
+            <div class="search-container">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Search for a user"
+                autocomplete="off"
+              />
+              <button id="search-button">Search</button>
+              <button id="reset-button">Reset</button>
+            </div>
           </div>
         </nav>
       </section>
+
+      <!--❗ Profile section including profile pic and profile details ❗-->
+
       <section id="profile-section">
         <div>
           <img id="profile-image" src="" alt="" />
@@ -63,14 +89,21 @@
           </div>
         </div>
       </section>
+
+      <!--❗ Repositories section including all the repositories details ❗-->
+
       <section id="list-section">
         <div class="border-line"></div>
         <div class="repo-card"></div>
       </section>
+
+      <!--❗ Pagination section including previous and next buttons as well as page numbers ❗-->
+
       <section id="page-section">
         <div class="page-button-container">
-          <button id="prev-btn">Previous</button>
-          <button id="next-btn">Next</button>
+          <button id="prev-btn">&leftarrow;</button>
+          <div class="page-numbers"></div>
+          <button id="next-btn">&rightarrow;</button>
         </div>
       </section>
     </main>

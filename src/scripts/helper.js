@@ -20,4 +20,27 @@ const getUserRepos = async (url) => {
   }
 };
 
-export { getUserProfile, getUserRepos };
+const handleActivePage = (pageNumber) => {
+  console.log(pageNumber);
+  const pageBtnContainer = document.querySelectorAll(".page-btn");
+
+  if (pageNumber === 1) {
+    pageBtnContainer[0].classList.add("active");
+
+    pageBtnContainer.forEach((btn) => {
+      if (btn.textContent !== "1") {
+        btn.classList.remove("active");
+      }
+    });
+  } else {
+    pageBtnContainer.forEach((btn) => {
+      btn.classList.remove("active");
+      if (btn.textContent === pageNumber.toString()) {
+        console.log(btn.textContent);
+        btn.classList.add("active");
+      }
+    });
+  }
+};
+
+export { getUserProfile, getUserRepos, handleActivePage };
