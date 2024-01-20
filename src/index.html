@@ -57,10 +57,14 @@
               </select>
           </div>
           <div class="search-container">
+            <select id="search-filter">
+              <option value="user" selected>User</option>
+              <option value="repo">Repository</option>
+            </select>
             <input
               type="text"
               id="search-input"
-              placeholder="Search for a user"
+              placeholder="Search for user"
               autocomplete="off"
             />
             <button id="search-button">Search</button>

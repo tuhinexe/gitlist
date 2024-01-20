@@ -76,7 +76,8 @@ p {
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem 0;
+  gap: 0.5rem;
 }
 
 .logo-container {
@@ -140,16 +141,22 @@ p {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  font-size: small;
 }
 
 .repo-dropdown select,
-.filter-container select {
+.filter-container select,
+.search-container select {
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: small;
   background-color: #1c222b;
+  color: #fff;
+}
+.filter-container label {
+  font-size: small;
   color: #fff;
 }
 
@@ -224,7 +231,6 @@ p {
   justify-content: flex-start;
   flex-direction: column;
   align-items: flex-start;
-  gap: rem;
   padding: 2rem;
   background-color: #1c2635;
   border-radius: 10px;

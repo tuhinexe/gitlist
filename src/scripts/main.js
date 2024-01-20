@@ -11,9 +11,11 @@ const searchInput = document.querySelector("#search-input");
 const searchBtn = document.querySelector("#search-button");
 const resetBtn = document.querySelector("#reset-button");
 const sortBtn = document.querySelector(".filter-container");
+const searchFilter = document.querySelector("#search-filter");
 const modal = document.querySelector(".modal");
 const modalCloseBtn = document.querySelector(".close");
 const repoDiv = document.querySelector(".repo-card");
+const repoCard = document.querySelector(".repo-card-item");
 const profileImage = document.querySelector("#profile-image");
 const profileName = document.querySelector("#profile-name");
 const profileBio = document.querySelector("#bio");
@@ -124,7 +126,7 @@ const renderRepos = async (url, sortBy) => {
     modal.style.display = "flex";
     return;
   }
-  let sortedRepos = [...repos];
+  let sortedRepos = repos;
 
   if (sortBy === "stars") {
     sortedRepos.sort((a, b) => {
@@ -134,6 +136,43 @@ const renderRepos = async (url, sortBy) => {
     sortedRepos.sort((a, b) => {
       return b.forks_count - a.forks_count;
     });
+  } else if (sortBy === "repo") {
+    pageSection.style.display = "none";
+    repoDiv.innerHTML = `
+    <a href=${repos.html_url} target="_blank" class="repo-card-item">
+      <h3>${repos.name}</h3>
+      <p>${repos.description || "No Description"}</p>
+      <div class="topics-container">
+        ${repos.topics
+          .map((topic) => {
+            return `<span class="topics">${topic}</span>`;
+          })
+          .join(" ")}
+      </div>
+      <div class="repo-card-footer">
+        
+        <div class="repo-star">
+          <span>Stars :</span>
+          <span>${repos.stargazers_count}</span>
+        </div>
+        <div class="repo-fork">
+          <span>Forks :</span>
+          <span>${repos.forks_count}</span>
+        </div>
+        <div class="repo-issues">
+          <span>Issues :</span>
+          <span>${repos.open_issues_count}</span>
+        </div>
+        <div class="repo-issues">
+          <span>Language :</span>
+          <span>${repos.language}</span>
+        </div>
+      </div>
+    </a>`;
+    console.log(repoDiv.firstElementChild);
+    repoDiv.style.display = "flex";
+    repoDiv.firstElementChild.style.width = "100%";
+    return;
   } else {
     sortedRepos = repos.filter((repo) => {
       return repo.visibility === "public";
@@ -221,13 +260,16 @@ const handleNumberOfRepos = (e) => {
 };
 
 const handleSearch = () => {
-  userName = searchInput.value;
-  if (userName === "") {
-    userName = "TuhinBar";
+  console.log(searchFilter.value);
+  if (searchFilter.value === "user") {
+    userName = searchInput.value;
+    renderProfile(userName);
+    renderRepos(`/users/${userName}/repos?per_page=${perPage}&page=1`);
+  } else {
+    let repoName = searchInput.value;
+    console.log(repoName);
+    renderRepos(`/repos/${userName}/${repoName}`, "repo");
   }
-  renderProfile(userName);
-  renderRepos(`/users/${userName}/repos?per_page=${perPage}&page=1`);
-  renderPageNumbers(totalRepos);
 };
 
 const handleReset = () => {
@@ -259,6 +301,15 @@ const handleSort = (e) => {
 
 modalCloseBtn.addEventListener("click", () => {
   modal.style.display = "none";
+});
+searchFilter.addEventListener("change", (e) => {
+  let filterType = e.target.value;
+
+  if (filterType === "user") {
+    searchInput.placeholder = "Search User";
+  } else {
+    searchInput.placeholder = "Search Repository";
+  }
 });
 searchBtn.addEventListener("click", handleSearch);
 resetBtn.addEventListener("click", handleReset);
