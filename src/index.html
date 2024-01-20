@@ -37,23 +37,34 @@
             <div class="repo-dropdown">
               <label for="repo-per-page">Per page</label>
               <select id="repo-per-page">
-                <option value="10" selected>10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
+                <option value="10" selected>10 Repos</option>
+                <option value="20">20 Repos</option>
+                <option value="50">50 Repos</option>
+                <option value="100">100 Repos</option>
               </select>
-              <p>Repo</p>
+              
             </div>
-            <div class="search-container">
-              <input
-                type="text"
-                id="search-input"
-                placeholder="Search for a user"
-                autocomplete="off"
-              />
-              <button id="search-button">Search</button>
-              <button id="reset-button">Reset</button>
-            </div>
+            
+            <!-- Filer -->
+            <div class="filter-container">
+              <label for="filter">Sort By</label>
+              <select id="filter">
+                <option value="all" selected>All</option>
+                <option value="stars">Stars</option>
+                <option value="forks">Forks</option>
+                
+                
+              </select>
+          </div>
+          <div class="search-container">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search for a user"
+              autocomplete="off"
+            />
+            <button id="search-button">Search</button>
+            <button id="reset-button">Reset</button>
           </div>
         </nav>
       </section>

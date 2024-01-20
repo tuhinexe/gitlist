@@ -10,6 +10,7 @@ const repoDropdown = document.querySelector(".repo-dropdown");
 const searchInput = document.querySelector("#search-input");
 const searchBtn = document.querySelector("#search-button");
 const resetBtn = document.querySelector("#reset-button");
+const sortBtn = document.querySelector(".filter-container");
 const modal = document.querySelector(".modal");
 const modalCloseBtn = document.querySelector(".close");
 const repoDiv = document.querySelector(".repo-card");
@@ -80,7 +81,6 @@ const renderPageNumbers = (totalRepoNumber) => {
 
 const renderProfile = async (githubUser) => {
   const profile = await getUserProfile(`/users/${githubUser}`);
-  console.log(profile);
   if (profile.message === "Not Found") {
     modal.style.display = "flex";
     return;
@@ -118,20 +118,31 @@ const renderProfile = async (githubUser) => {
   }
 };
 
-const renderRepos = async (url) => {
+const renderRepos = async (url, sortBy) => {
   const repos = await getUserRepos(url);
-  // console.log(repos);
   if (repos.message === "Not Found") {
     modal.style.display = "flex";
     return;
   }
-  const sortedRepos = repos.filter((repo) => {
-    return repo.visibility === "public";
-  });
-  //   console.log(sortedRepos);
+  let sortedRepos = [...repos];
+
+  if (sortBy === "stars") {
+    sortedRepos.sort((a, b) => {
+      return b.stargazers_count - a.stargazers_count;
+    });
+  } else if (sortBy === "forks") {
+    sortedRepos.sort((a, b) => {
+      return b.forks_count - a.forks_count;
+    });
+  } else {
+    sortedRepos = repos.filter((repo) => {
+      return repo.visibility === "public";
+    });
+  }
 
   repoDiv.innerHTML = sortedRepos
     .map((repo) => {
+      console.log(repo);
       return `
     <a href=${repo.html_url} target="_blank" class="repo-card-item">
       <h3>${repo.name}</h3>
@@ -226,6 +237,26 @@ const handleReset = () => {
   renderRepos(`/users/${userName}/repos?per_page=${perPage}&page=1`);
 };
 
+const handleSort = (e) => {
+  const sortType = e.target.value;
+  if (sortType === "stars") {
+    renderRepos(
+      `/users/${userName}/repos?per_page=${perPage}&page=${pageNumber}`,
+      "stars"
+    );
+  } else if (sortType === "forks") {
+    renderRepos(
+      `/users/${userName}/repos?per_page=${perPage}&page=${pageNumber}`,
+      "forks"
+    );
+  } else {
+    renderRepos(
+      `/users/${userName}/repos?per_page=${perPage}&page=${pageNumber}`,
+      "all"
+    );
+  }
+};
+
 modalCloseBtn.addEventListener("click", () => {
   modal.style.display = "none";
 });
@@ -235,7 +266,7 @@ prevBtn.addEventListener("click", handlePreviosPage);
 nextBtn.addEventListener("click", handleNextPage);
 pageBtnContainer.addEventListener("click", handlePageNumber);
 repoDropdown.addEventListener("change", handleNumberOfRepos);
-
+sortBtn.addEventListener("change", handleSort);
 window.addEventListener("load", () => {
   renderProfile(userName);
   renderRepos(`/users/${userName}/repos?per_page=${perPage}&page=1`);

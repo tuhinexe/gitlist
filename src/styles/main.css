@@ -142,7 +142,8 @@ p {
   gap: 0.5rem;
 }
 
-.repo-dropdown select {
+.repo-dropdown select,
+.filter-container select {
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: none;

@@ -21,7 +21,6 @@ const getUserRepos = async (url) => {
 };
 
 const handleActivePage = (pageNumber) => {
-  console.log(pageNumber);
   const pageBtnContainer = document.querySelectorAll(".page-btn");
 
   if (pageNumber === 1) {
@@ -36,7 +35,6 @@ const handleActivePage = (pageNumber) => {
     pageBtnContainer.forEach((btn) => {
       btn.classList.remove("active");
       if (btn.textContent === pageNumber.toString()) {
-        console.log(btn.textContent);
         btn.classList.add("active");
       }
     });
